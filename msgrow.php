@@ -25,7 +25,7 @@ if(isset($postdata) && !empty($postdata)){
 
     // Checar se há respostas
     if(mysqli_num_rows($query) == 0){
-        $json = http_response_code(101);
+        $json = http_response_code(201);
     } else {
         
     $createarray = array();
@@ -43,16 +43,19 @@ if(isset($postdata) && !empty($postdata)){
         $sql = "SELECT * FROM mensagens";
 
         // Iniciando conexão
-        $result = mysqli_query($conexao, $sql);
-        
+        $query = mysqli_query($conexao, $sql);
+        if(mysqli_num_rows($query) == 0){
+        $json = http_response_code(201);
+        } else {
+
         $createarray = array();
 
         // Pegando as informações e colocando em uma array em seguida em json
-        while($row = mysqli_fetch_assoc($result)) {
+        while($row = mysqli_fetch_assoc($query)) {
             $createarray[] = $row;
             $json = json_encode($createarray, JSON_UNESCAPED_UNICODE);
         };
-
+}
     } elseif($filtro == "grafico"){
         $createarray = array();
 
@@ -104,4 +107,3 @@ echo $json;
 
 // Fechando a conexão
 mysqli_close($conexao);
-
