@@ -10,18 +10,15 @@ $postdata = json_decode(file_get_contents('php://input'), true);
 
 if(isset($postdata) && !empty($postdata)){
 
-        // Definindo as variáveis
-        $msgid = $postdata["msgid"];
-
         // Comando de busca no mysql
-        $sql = "SELECT * FROM respostas WHERE remetente = '{$msgid}'";
+        $sql = "SELECT * FROM respostas";
 
         // Query de busca no banco de dados
         $query =  mysqli_query($conexao, $sql);
 
         // Checar se há respostas
         if(mysqli_num_rows($query) == 0){
-            http_response_code(422);
+            http_response_code(201);
         } else {
 
         http_response_code(200);

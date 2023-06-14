@@ -57,34 +57,47 @@ if(isset($postdata) && !empty($postdata)){
         };
 }
     } elseif($filtro == "grafico"){
+        
         $createarray = array();
 
         // Comando de busca no mysql
         // EU SEI QUE ISSO TA HORROROSO EU TENTEI FAZER DE OUTRO JEITO, MAS NÃO DEU :(
-        $sql = "SELECT * FROM mensagens";
-        $query =  mysqli_query($conexao, $sql);
-        $row = mysqli_num_rows($query);
-        
-        $sql1 = "SELECT * FROM mensagens WHERE msgdestino = '1'";
-        $query =  mysqli_query($conexao, $sql1);
-        $row1 = mysqli_num_rows($query);
+        $sql = "SELECT * FROM mensagens"; 
+        $stmt = $conexao->prepare($sql); 
+        $stmt->execute();
+        $result = $stmt->get_result(); 
+        $row = mysqli_num_rows($result);
+
+        $sql1 = "SELECT * FROM mensagens WHERE msgdestino = '1'"; 
+        $stmt = $conexao->prepare($sql1); 
+        $stmt->execute();
+        $result1 = $stmt->get_result(); 
+        $row1 = mysqli_num_rows($result1);
 
         $sql2 = "SELECT * FROM mensagens WHERE msgdestino = '2'";
-        $query =  mysqli_query($conexao, $sql2);
-        $row2 = mysqli_num_rows($query);
+        $stmt = $conexao->prepare($sql2); 
+        $stmt->execute();
+        $result2 = $stmt->get_result(); 
+        $row2 = mysqli_num_rows($result2);
 
         $sql3 = "SELECT * FROM mensagens WHERE msgdestino = '3'";
-        $query =  mysqli_query($conexao, $sql3);
-        $row3 = mysqli_num_rows($query);
+        $stmt = $conexao->prepare($sql3); 
+        $stmt->execute();
+        $result3 = $stmt->get_result(); 
+        $row3 = mysqli_num_rows($result3);
 
         $sql4 = "SELECT * FROM mensagens WHERE msgdestino = '4'";
-        $query =  mysqli_query($conexao, $sql4);
-        $row4 = mysqli_num_rows($query);
+        $stmt = $conexao->prepare($sql4); 
+        $stmt->execute();
+        $result4 = $stmt->get_result(); 
+        $row4 = mysqli_num_rows($result4);
 
         $sql5 = "SELECT * FROM mensagens WHERE msgdestino = '5'";
-        $query =  mysqli_query($conexao, $sql5);
-        $row5 = mysqli_num_rows($query);
-
+        $stmt = $conexao->prepare($sql5); 
+        $stmt->execute();
+        $result5 = $stmt->get_result(); 
+        $row5 = mysqli_num_rows($result5);
+            
         $returnData = [
             'tudo' => $row,
             'faculdade' => $row1,

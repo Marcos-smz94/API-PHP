@@ -10,14 +10,16 @@ $postdata = json_decode(file_get_contents('php://input'), true);
 if(isset($postdata) && !empty($postdata)){
 
     // Definindo as variáveis
-    $titulo = $postdata["titulo"];
-    $msg = $postdata["reclamacao"];
-    $destino = $postdata["destino"];
-    $userid = $postdata["id_User"];
-    $status = 1;
+    $nome = trim($postdata["nome"]);
+    $email = trim($postdata["email"]);
+    $senha = trim($postdata["senha"]);
+    $tipousuario = trim($postdata["tipousuario"]);
+    
+    // Encriptando a senha
+    $hash = password_hash($senha, PASSWORD_DEFAULT);
 
     // Comando de busca no mysql
-    $sql = "INSERT INTO mensagens (msgtitulo, msgtxt, msgdestino, msgstatus, user_id, msgdata) VALUES (?, ?, ?, ?, ?, Now())";
+    $sql = "INSERT INTO usuarios (nome, senha, email, nivel) VALUES (?, ?, ?, ?)";
 
     // Iniciando conexão
     $stmt = mysqli_stmt_init($conexao);
@@ -26,7 +28,7 @@ if(isset($postdata) && !empty($postdata)){
     };
 
     // Organizando a entrada
-    mysqli_stmt_bind_param($stmt, "ssiii", $titulo, $msg, $destino, $status, $userid);
+    mysqli_stmt_bind_param($stmt, "ssss", $nome, $hash, $email, $tipousuario);
 
     // Enviando para o banco de dados
     if( mysqli_stmt_execute($stmt)){
@@ -34,7 +36,7 @@ if(isset($postdata) && !empty($postdata)){
     }
     else{
         http_response_code(422); 
-    };
+    }; 
 };
 
 // Fechando a conexão

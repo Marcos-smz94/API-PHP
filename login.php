@@ -58,13 +58,13 @@ if(isset($postdata) && !empty($postdata)){
     } elseif ($_SESSION['UsuarioNivel'] == '2'){
         $tipouser = 'admin';
     } elseif ($_SESSION['UsuarioNivel'] == '3'){
-        $tipouser = 'professores';
+        $tipouser = 'setor';
     } elseif ($_SESSION['UsuarioNivel'] == '4'){   
-        $tipouser = 'direcao';
+        $tipouser = 'setor';
     } elseif ($_SESSION['UsuarioNivel'] == '5'){
-        $tipouser = 'coordenadores';
+        $tipouser = 'setor';
     } else{
-        $tipouser = 'servicosgerais';
+        $tipouser = 'setor';
     };
     
     // O que vamos retornar para o front
